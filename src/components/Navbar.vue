@@ -25,6 +25,9 @@ export default {
           console.log(key, keyPath)
           router.push({ path: '/' })
           break
+        case 'websites':
+          console.log(key, keyPath)
+          router.push({ path: '/websites/' })
       }
       console.log(key, keyPath)
     }

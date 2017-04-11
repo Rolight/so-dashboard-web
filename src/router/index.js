@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Hello from '@/components/Hello'
 import client from '@/components/client'
+import Websites from '@/components/Websites'
 
 Vue.use(Router)
 
@@ -55,6 +56,10 @@ export default new Router({
         logout()
         next({ name: 'Login' })
       }
+    }, {
+      path: '/websites/',
+      beforeEnter: requireAuth,
+      component: Websites
     }
   ]
 })
