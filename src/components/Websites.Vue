@@ -24,6 +24,15 @@
                   <span>{{ props.row.expire_seconds }}</span>
                 </el-form-item>
                 <allowed-domain :websiteid="props.row.id"></allowed-domain>
+                <el-form-item label="起始URL">
+                  <url-pattern :websiteid="props.row.id" :type="2"></url-pattern>
+                </el-form-item>
+                <el-form-item label="抓取URL Pattern">
+                  <url-pattern :websiteid="props.row.id" :type="0"></url-pattern>
+                </el-form-item>
+                <el-form-item label="Walk URL Pattern">
+                  <url-pattern :websiteid="props.row.id" :type="1"></url-pattern>
+                </el-form-item>
             </el-form>
           </template>
         </el-table-column>
@@ -66,6 +75,7 @@
 import client from './client'
 import types from './types'
 import AllowedDomain from './AllowedDomain'
+import UrlPattern from './UrlPattern'
 export default {
   name: 'Websites',
   data () {
@@ -83,7 +93,8 @@ export default {
     '$route': 'fetchWebsiteData'
   },
   components: {
-    AllowedDomain
+    AllowedDomain,
+    UrlPattern
   },
   methods: {
     fetchWebsiteData () {

@@ -1,37 +1,37 @@
 <template>
-  <el-form-item label="允许被爬取的主机名">
-    <el-tag type="success" :key="allowedDomain" v-for="allowedDomain in allowedDomains" :closable="true" :close-transition="false" @close="handleClose(allowedDomain)">
-      {{ allowedDomain.domain }}
+  <div>
+    <el-tag type="primary" :key="urlPattern" v-for="urlPattern in urlPatterns" :closable="true" :close-transition="false" @close="handleClose(urlPattern)">
+      {{ urlPattern.pattern }}
     </el-tag>
     <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="mini" @keyup.enter.native="handleInputConfirm">
     </el-input>
-    <el-button v-else class="button-new-tag" type="text" size="small" @click="showInput">+ 添加</el-button>
-  </el-form-item>
+    <el-button v-else class="button-new-tag" size="small" type="text" @click="showInput">+ 添加</el-button>
+  </div>
 </template>
 <script>
 import client from './client'
 export default {
   data () {
     return {
-      allowedDomains: [],
+      urlPatterns: [],
       inputValue: '',
       inputVisible: false
     }
   },
-  props: ['websiteid'],
+  props: ['websiteid', 'title', 'type'],
   created () {
-    this.fetchAllowDomainData()
+    this.fetchUrlPatternData()
   },
   watch: {
-    '$route': 'fetchAllowDomainData'
+    '$route': 'fetchUrlPatternData'
   },
   methods: {
-    fetchAllowDomainData () {
-      var url = '/api/websites/' + this.websiteid + '/websitealloweddomains/'
+    fetchUrlPatternData () {
+      var url = '/api/websites/' + this.websiteid + '/websiteurlpatterns/' + '?type=' + this.type
       client.get(url)
       .then((response) => {
-        this.allowedDomains = response['data']
-        console.log(this.allowedDomains)
+        this.urlPatterns = response['data']
+        console.log(this.urlPatterns)
       }).catch((error) => {
         console.log(error)
       })
@@ -43,11 +43,11 @@ export default {
       })
     },
     handleClose (tag) {
-      var url = '/api/websitealloweddomains/' + tag.id + '/'
+      var url = '/api/websiteurlpatterns/' + tag.id + '/'
       console.log(url)
       client.delete(url)
       .then((response) => {
-        this.allowedDomains.splice(this.allowedDomains.indexOf(tag), 1)
+        this.urlPatterns.splice(this.urlPatterns.indexOf(tag), 1)
       })
       .catch((err) => {
         console.log(err)
@@ -55,13 +55,14 @@ export default {
     },
     handleInputConfirm () {
       let inputValue = this.inputValue
-      var url = '/api/websites/' + this.websiteid + '/websitealloweddomains/'
+      var url = '/api/websites/' + this.websiteid + '/websiteurlpatterns/'
       client.post(url, {
         'website_id': this.websiteid,
-        'domain': inputValue
+        'pattern': inputValue,
+        'pattern_type': this.type
       })
       .then((response) => {
-        this.allowedDomains.push(response['data'])
+        this.urlPatterns.push(response['data'])
       })
       .catch((err) => {
         console.log(err)
