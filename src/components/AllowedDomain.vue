@@ -3,7 +3,7 @@
     <el-tag type="success" :key="allowedDomain" v-for="allowedDomain in allowedDomains" :closable="true" :close-transition="false" @close="handleClose(allowedDomain)">
       {{ allowedDomain.domain }}
     </el-tag>
-    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="mini" @keyup.enter.native="handleInputConfirm">
+    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="mini" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
     </el-input>
     <el-button v-else class="button-new-tag" type="text" size="small" @click="showInput">+ 添加</el-button>
   </el-form-item>
