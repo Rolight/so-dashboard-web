@@ -63,6 +63,8 @@
                 <el-form-item label="Walk URL Pattern">
                   <url-pattern :websiteid="props.row.id" :type="1"></url-pattern>
                 </el-form-item>
+                <selector :websiteid="props.row.id">
+                </selector>
               </el-form>
             </template>
           </el-table-column>
@@ -119,6 +121,7 @@ import types from './types'
 import AllowedDomain from './AllowedDomain'
 import UrlPattern from './UrlPattern'
 import WebsiteEditDig from './WebsiteEditDig'
+import Selector from './Selector'
 export default {
   name: 'Websites',
   data () {
@@ -149,7 +152,8 @@ export default {
   components: {
     AllowedDomain,
     UrlPattern,
-    WebsiteEditDig
+    WebsiteEditDig,
+    Selector
   },
   methods: {
     clearForm () {

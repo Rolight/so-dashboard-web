@@ -74,6 +74,7 @@ export default {
         })
         console.log(error)
       })
+      this.editFormVisible = false
     },
     onDelete () {
       this.$confirm('此操作将永久删除网站及相关信息, 是否继续?', '提示', {

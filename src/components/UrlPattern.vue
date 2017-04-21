@@ -3,7 +3,7 @@
     <el-tag type="primary" :key="urlPattern" v-for="urlPattern in urlPatterns" :closable="true" :close-transition="false" @close="handleClose(urlPattern)">
       {{ urlPattern.pattern }}
     </el-tag>
-    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="mini" @keyup.enter.native="handleInputConfirm">
+    <el-input class="input-new-tag" v-if="inputVisible" v-model="inputValue" ref="saveTagInput" size="mini" @keyup.enter.native="handleInputConfirm" @blur="handleInputConfirm">
     </el-input>
     <el-button v-else class="button-new-tag" size="small" type="text" @click="showInput">+ 添加</el-button>
   </div>
