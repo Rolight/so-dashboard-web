@@ -4,6 +4,7 @@
       <el-menu-item index="home">接入式搜索引擎系统</el-menu-item>
       <el-menu-item index="websites"><i class="el-icon-upload"></i>索引站点</el-menu-item>
       <el-menu-item index="spiders"><i class="el-icon-time"></i>爬虫任务</el-menu-item>
+      <el-menu-item index="search"><i class="el-icon-search"></i>搜索测试</el-menu-item>
       <el-menu-item index="logout">登出</el-menu-item>
     </el-menu>
   </div>
@@ -28,6 +29,14 @@ export default {
         case 'websites':
           console.log(key, keyPath)
           router.push({ path: '/websites/' })
+          break
+        case 'spiders':
+          console.log(key, keyPath)
+          router.push({ path: '/spiders/' })
+          break
+        case 'search':
+          console.log(key, keyPath)
+          router.push({ path: '/search/' })
       }
       console.log(key, keyPath)
     }

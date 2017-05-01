@@ -1,5 +1,8 @@
 <template>
   <div>
+    <el-button type="warning"  size="small" @click="onRun">
+      <i class="el-icon-caret-right"></i>
+    </el-button>
     <el-button type="primary" icon="edit" size="small" @click="onEdit"></el-button>
     <el-button type="danger" icon="delete" size="small" @click="onDelete"></el-button>
     <el-dialog title="更新网站" v-model="editFormVisible">
@@ -105,6 +108,16 @@ export default {
           message: error.response.data,
           type: 'error'
         })
+        console.log(error)
+      })
+    },
+    onRun () {
+      var url = '/api/spidertasks/'
+      client.post(url, {website_id: this.websiteid})
+      .then((response) => {
+        this.$message(response.data)
+      })
+      .catch((error) => {
         console.log(error)
       })
     }
