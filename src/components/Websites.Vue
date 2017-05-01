@@ -41,6 +41,9 @@
           <el-table-column type="expand">
             <template scope="props">
               <el-form label-position="left" inline class="table-expand">
+                <el-form-item label="编号">
+                  <span>{{ props.row.id }}</span>
+                </el-form-item>
                 <el-form-item label="索引名称">
                   <span>{{ props.row.title }}</span>
                 </el-form-item>
