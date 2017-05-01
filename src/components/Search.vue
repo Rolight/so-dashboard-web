@@ -19,12 +19,33 @@
     </el-col>
   </el-row>
   <el-row>
+
+  </el-row>
+    <el-col :span="17" :offset="2">
+    </el-col>
+
+  <el-row>
     <el-col :span="17" :offset="2">
       <ul :key="result" v-for="result in resultData">
         <search-result :title="result.data.title" :content="result.data.content" :url="result.data.url"></search-result>
       </ul>
     </el-col>
   </el-row>
+
+  <el-row>
+    <el-col :span="8" :offset="6">
+      <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="page"
+      :page-sizes="[10, 20, 30, 40]"
+      :page-size="ipp"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
+    </el-col>
+  </el-row>
+
 </el-row>
 </template>
 <style>
@@ -44,7 +65,8 @@ export default {
       },
       resultData: [],
       page: 1,
-      ipp: 10
+      ipp: 10,
+      total: 0
     }
   },
   components: {
@@ -55,16 +77,27 @@ export default {
       var url = '/api/search/'
       client.post(url, {
         index: 'so-index-' + this.formInline.websiteId,
-        query: this.formInline.keyword
+        query: this.formInline.keyword,
+        page: this.page,
+        ipp: this.ipp
       })
       .then((response) => {
         console.log(response)
         this.resultData = response.data.hits
+        this.total = response.data.total
         console.log(this.resultData)
       })
       .catch((error) => {
         console.log(error)
       })
+    },
+    handleCurrentChange (val) {
+      this.page = val
+      this.onSubmit()
+    },
+    handleSizeChange (val) {
+      this.ipp = val
+      this.onSubmit()
     }
   }
 }

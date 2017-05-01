@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
-import Hello from '@/components/Hello'
 import client from '@/components/client'
 import Websites from '@/components/Websites'
 import Spiders from '@/components/Spiders'
@@ -51,7 +50,7 @@ export default new Router({
     }, {
       path: '/',
       beforeEnter: requireAuth,
-      component: Hello
+      component: Websites
     }, {
       path: '/logout',
       beforeEnter (to, from, next) {
