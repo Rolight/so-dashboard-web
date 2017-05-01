@@ -32,7 +32,7 @@ export default {
   created () {
     var self = this
     setInterval(function refreshLogData () {
-      if (this.logDlgVisible) {
+      if (self.logDlgVisible === true) {
         var url = '/api/spidertasks/' + self.taskId + '/log/?line=' + self.nowLogLine
         client.get(url)
         .then((response) => {
